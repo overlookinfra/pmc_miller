@@ -1,0 +1,30 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'Boltdir/site-modules/metrics/spec/fixtures/**/*'
+    - 'Boltdir/site-modules/pe_xl/**/*'
+    - 'vendor/**/*'
+Layout/HashAlignment:
+  EnforcedHashRocketStyle: table
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Layout/LineLength:
+  Max: 120
+Metrics/MethodLength:
+  Max: 99
+Metrics/BlockLength:
+  Max: 50
+Metrics/ModuleLength:
+  Max: 999
+Metrics/AbcSize:
+  Max: 59
+Metrics/CyclomaticComplexity:
+  Max: 15
+Metrics/PerceivedComplexity:
+  Max: 15
+Style/MultilineIfModifier:
+  Enabled: false
+Naming/FileName:
+  Enabled: false
+Style/RedundantReturn:
+  Enabled: false
