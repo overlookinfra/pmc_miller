@@ -10,10 +10,9 @@ RSpec.describe PmcMiller::Reader do
     expect(reader.service).to eq(:puppetdb)
   end
   it "reads service data for given key" do
-    expected_results = [0]
     reader = PmcMiller::Reader.new(FIXTURES_DIR)
     reader.service = :puppetdb
     results = reader.read(:queue_depth)
-    expect(results).to eq(expected_results)
+    expect(results).to be_an_instance_of(PmcMiller::Results)
   end
 end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "pmc_miller/results"
+
 # PmcMiller
 module PmcMiller
   # Reader
@@ -15,12 +17,12 @@ module PmcMiller
     def read(key)
       return unless %i[puppetserver puppetdb].include? @service
 
-      results = []
+      results = PmcMiller::Results.new
       json_files.each do |f|
         host = File.dirname(f).split(File::SEPARATOR).last
         json_string = File.read(f)
         data = JSON.parse(json_string)
-        results << data.dig(*key_map(key, host))
+        results << PmcMiller::Result.new(data["timestamp"], data.dig(*key_map(key, host)))
       end
       results
     end
