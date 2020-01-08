@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "date"
+require "time"
 
 module PmcMiller
   # Result object
   Result = Struct.new(:time_string, :value) do
     def time
-      DateTime.iso8601(time_string)
+      Time.iso8601(time_string)
     end
   end
 

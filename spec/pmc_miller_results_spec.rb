@@ -3,7 +3,7 @@
 require "pmc_miller/results"
 
 RSpec.describe PmcMiller::Results do
-  let(:now) { DateTime.now.iso8601 }
+  let(:now) { Time.now.iso8601 }
   it "accepts result object" do
     res = PmcMiller::Result.new(now, 0)
     results = PmcMiller::Results.new
