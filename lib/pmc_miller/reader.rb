@@ -40,7 +40,7 @@ module PmcMiller
     end
 
     def json_files
-      Dir[File.join(@path, @service.to_s, "*", "*.json")]
+      Dir[File.join(@path, @service.to_s, "*", "*.json")].sort
     end
 
     # List of archive files for defined service
