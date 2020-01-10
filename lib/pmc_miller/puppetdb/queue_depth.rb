@@ -6,10 +6,8 @@ module PmcMiller
     class QueueDepth
       attr_reader :data
 
-      def initialize(pmc_reader)
-        pmc_reader.service = :puppetdb
-        @data = pmc_reader.read(:queue_depth)
-        # @rate_of_change
+      def initialize(data)
+        @data = data
       end
 
       def rate_of_change
@@ -40,8 +38,12 @@ module PmcMiller
         delta_y / delta_x
       end
 
+      def results
+        { rate_of_change: rate_of_change }
+      end
+
       def settings
-        "Unknown"
+        {}
       end
 
       def summary
@@ -51,7 +53,7 @@ module PmcMiller
       end
 
       def to_json(*)
-        "{ 'in': 'progress' }"
+        { results: results, settings: settings, summary: summary }.to_json
       end
     end
   end
