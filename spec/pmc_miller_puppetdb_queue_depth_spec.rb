@@ -10,12 +10,12 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
     reader = PmcMiller::Reader.new(fixtures_dir)
     subject = PmcMiller::PuppetDB::QueueDepth.new(reader)
 
-    it "gathers results of puppetdb queue depth" do
+    it "gathers data of puppetdb queue depth" do
       # expected valuesextracted from fixture json file
-      expected_result = PmcMiller::Result.new("1970-01-01T00:00:01Z", 0)
-      expected_results = PmcMiller::Results.new
-      expected_results << expected_result
-      expect(subject.results).to eq(expected_results)
+      expected_data_point = PmcMiller::DataPoint.new("1970-01-01T00:00:01Z", 0)
+      expected_data = PmcMiller::Data.new
+      expected_data << expected_data_point
+      expect(subject.data).to eq(expected_data)
     end
 
     it "gathers settings of puppetdb queue depth" do

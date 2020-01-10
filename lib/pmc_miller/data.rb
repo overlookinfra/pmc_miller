@@ -3,15 +3,15 @@
 require "time"
 
 module PmcMiller
-  # Result object
-  Result = Struct.new(:time_string, :value) do
+  # DataPoint object
+  DataPoint = Struct.new(:time_string, :value) do
     def time
       Time.iso8601(time_string)
     end
   end
 
-  # Collection of Result objects
-  class Results < Array
+  # Collection of DataPoint objects
+  class Data < Array
     # Return the element from the middle of the array.
     def mid
       self[(length / 2)]

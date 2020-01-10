@@ -4,11 +4,11 @@ module PmcMiller
   module PuppetDB
     # QueueDepth analysis class
     class QueueDepth
-      attr_reader :results
+      attr_reader :data
 
       def initialize(pmc_reader)
         pmc_reader.service = :puppetdb
-        @results = pmc_reader.read(:queue_depth)
+        @data = pmc_reader.read(:queue_depth)
         # @rate_of_change
       end
 
@@ -26,15 +26,15 @@ module PmcMiller
       end
 
       def slope(res1, res2)
-        unless @results.respond_to?(res1) &&
-               @results.respond_to?(res2) &&
+        unless @data.respond_to?(res1) &&
+               @data.respond_to?(res2) &&
                %w[first mid last].include?(res1) &&
                %w[first mid last].include?(res2)
           return
         end
 
-        delta_x = @results.public_send(res2).value - @results.public_send(res1).value
-        delta_y = @results.public_send(res2).time - @results.public_send(res1).time
+        delta_x = @data.public_send(res2).value - @data.public_send(res1).value
+        delta_y = @data.public_send(res2).time - @data.public_send(res1).time
         return delta_x if delta_x.zero?
 
         delta_y / delta_x
