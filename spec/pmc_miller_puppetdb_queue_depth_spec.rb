@@ -25,7 +25,7 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
     end
 
     it "gathers the analysis results of puppetdb queue depth" do
-      expect(subject.results).to eq(rate_of_change: 0)
+      expect(subject.results).to eq(rate_of_change: 0.0)
     end
 
     it "constructs summary of puppetdb queue depth" do
@@ -33,7 +33,7 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
     end
 
     it "emits json of puppetdb queue depth" do
-      expect(subject.to_json).to eq('{"results":{"rate_of_change":0},"settings":{},"summary":"pass"}')
+      expect(subject.to_json).to eq('{"results":{"rate_of_change":0.0},"settings":{},"summary":"pass"}')
     end
   end
 
