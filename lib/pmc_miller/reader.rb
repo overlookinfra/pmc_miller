@@ -40,10 +40,9 @@ module PmcMiller
 
       data = PmcMiller::Data.new
       json_files.each do |f|
-        host = File.dirname(f).split(File::SEPARATOR).last
         json_string = File.read(f)
         json = JSON.parse(json_string)
-        data << PmcMiller::DataPoint.new(json["timestamp"], json.dig(*key_map(key, host)))
+        data << PmcMiller::DataPoint.new(json["timestamp"], nested_hash_value(json, key.to_s))
       end
       data
     end
@@ -51,23 +50,23 @@ module PmcMiller
     private
 
     ##
-    # Fully defined data key structure assocated with given key.
+    # Recursively search through object for key
     #
-    # @param key [Symbol] Key to look up data structure for
-    # @param host [String] Puppet Host associated with data to be found
+    # Copied from https://stackoverflow.com/a/8301752
     #
-    # @return [Array] Ordered list of keys needed to dig given key from pmc data
+    # @param obj [Object] Object to recursively search
+    # @param key [Symbol, string] Key to search for
     #
-    def key_map(key, host)
-      key_map = { puppetdb: {
-        queue_depth: ["servers",
-                      host.gsub(".", "-"),
-                      "puppetdb",
-                      "puppetdb-status",
-                      "status",
-                      "queue_depth"]
-      } }
-      key_map[@service][key]
+    # @return First found value associated with key, nil if not found
+    #
+    def nested_hash_value(obj, key)
+      if obj.respond_to?(:key?) && obj.key?(key)
+        obj[key]
+      elsif obj.respond_to?(:each)
+        r = nil
+        obj.find { |*a| r = nested_hash_value(a.last, key) }
+        r
+      end
     end
 
     ##
