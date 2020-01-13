@@ -60,7 +60,8 @@ module PmcMiller
       # Calculate slope given points in the data.
       #
       # The average rate of change (slope) is calculated for the given points
-      # in the data set.
+      # in the data set.  The data set must be sorted by time object from low
+      # to high.
       #
       # @param dpoint1 [String] Data method name for index (first, mid, last)
       # @param dpoint2 [String] Data method name for index (first, mid, last)
@@ -74,6 +75,8 @@ module PmcMiller
                %w[first mid last].include?(dpoint2)
           return
         end
+        @data = @data.sort_by { |datapoint| datapoint.time }
+
 
         delta_x = @data.public_send(dpoint2).value - @data.public_send(dpoint1).value
         delta_y = @data.public_send(dpoint2).time - @data.public_send(dpoint1).time
