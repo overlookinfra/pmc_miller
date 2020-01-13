@@ -74,7 +74,6 @@ to_json
 : JSON string of the previous three methods.
 
 
-#### Example Usage
 ```ruby
 require "pmc_miller/reader"
 

@@ -3,7 +3,6 @@
 require "pmc_miller/reader"
 require "pmc_miller/puppetdb/queue_depth"
 
-require "pry"
 RSpec.describe PmcMiller::PuppetDB::QueueDepth do
   context "Minimal queue depth info" do
     fixtures_dir = File.join("spec", "fixtures", "basic", "puppet-metrics-collector")
@@ -13,7 +12,7 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
     subject = PmcMiller::PuppetDB::QueueDepth.new(data)
 
     it "gathers data of puppetdb queue depth" do
-      # expected valuesextracted from fixture json file
+      # expected values extracted from fixture json file
       expected_data_point = PmcMiller::DataPoint.new("1970-01-01T00:00:01Z", 0)
       expected_data = PmcMiller::Data.new
       expected_data << expected_data_point

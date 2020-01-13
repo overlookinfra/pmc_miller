@@ -18,7 +18,7 @@ module PmcMiller
     ##
     # Creates a new reader that will use the given path as its data source.
     #
-    # @param path [String] File system path to puppet-metrics-collector data
+    # @param path [String] File system path of puppet-metrics-collector root
     #
     # @return [PmcMiller::Reader]
     #
