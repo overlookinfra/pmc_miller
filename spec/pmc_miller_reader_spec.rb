@@ -12,7 +12,7 @@ RSpec.describe PmcMiller::Reader do
   it "reads service data for given key" do
     reader = PmcMiller::Reader.new(fixtures_dir)
     reader.service = :puppetdb
-    data = reader.read("queue_depth")
+    data = reader.read(:queue_depth)
     expect(data).to be_an_instance_of(PmcMiller::Data)
   end
 end

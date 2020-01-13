@@ -40,7 +40,7 @@ require "pmc_miller/reader"
 
 reader = PmcMiller::Reader.new("/path/to/puppet-metrics-collector")
 reader.service = :puppetdb
-data = reader.read("queue_depth")
+data = reader.read(:queue_depth)
 ```
 
 The data object returned is an array of PmcMiller::DataPoint objects.  These
@@ -81,7 +81,7 @@ require "pmc_miller/reader"
 reader = PmcMiller::Reader.new("/path/to/puppet-metrics-collector")
 reader.service = :puppetdb
 
-data = reader.read("queue_depth")
+data = reader.read(:queue_depth)
 
 qd = PmcMiller::PuppetDB::QueueDepth.new(data)
 
