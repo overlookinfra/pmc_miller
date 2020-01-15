@@ -45,7 +45,7 @@ data = reader.read(:queue_depth)
 
 The data object returned is an array of PmcMiller::DataPoint objects.  These
 objects are a struct consisting of the `Time` and value of the data point for
-the key that was use for the lookup.  From our previous example, the Data
+the key that was used for the lookup.  From our previous example, the Data
 object would appear as follows.
 
 ```ruby
