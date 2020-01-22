@@ -14,7 +14,7 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
     it "gathers data of puppetdb queue depth" do
       # expected values extracted from fixture json file
       expected_data_point = PmcMiller::DataPoint.new("1970-01-01T00:00:01Z", 0)
-      expected_data = PmcMiller::Data.new
+      expected_data = []
       expected_data << expected_data_point
       expect(subject.data).to eq(expected_data)
     end

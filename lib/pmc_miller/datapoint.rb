@@ -16,20 +16,4 @@ module PmcMiller
       Time.iso8601(time_string)
     end
   end
-
-  ##
-  # Collection of DataPoint objects
-  #
-  # @return [PmcMiller::Data] Object to store PmcMiller::DataPoint objects
-  #
-  class Data < Array
-    ##
-    # Return the element from the middle of the Data object.
-    #
-    # @return [PmcMiller::DataPoint]
-    #
-    def mid
-      self[(length / 2)]
-    end
-  end
 end

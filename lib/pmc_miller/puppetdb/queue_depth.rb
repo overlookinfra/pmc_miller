@@ -12,7 +12,7 @@ module PmcMiller
       ##
       # Creates a new QueueDepth analyzer
       #
-      # @param data [PmcMiller::Data] queue_depth data to analyze
+      # @param data [Array] queue_depth data to analyze
       #
       # @return [PmcMiller::PuppetDB::QueueDepth]
       #
@@ -41,7 +41,7 @@ module PmcMiller
       # @return [Float]
       #
       def first_half_slope
-        slope("first", "mid")
+        slope(0, @data.length / 2)
       end
 
       ##
@@ -53,7 +53,7 @@ module PmcMiller
       # @return [Float]
       #
       def last_half_slope
-        slope("mid", "last")
+        slope(@data.length / 2, -1)
       end
 
       ##
@@ -63,23 +63,16 @@ module PmcMiller
       # in the data set.  The data set must be sorted by time object from low
       # to high.
       #
-      # @param dpoint1 [String] Data method name for index (first, mid, last)
-      # @param dpoint2 [String] Data method name for index (first, mid, last)
+      # @param dpoint1 [Integer] Array index
+      # @param dpoint2 [Integer] Array index
       #
       # @return [Float]
       #
       def slope(dpoint1, dpoint2)
-        unless @data.respond_to?(dpoint1) &&
-               @data.respond_to?(dpoint2) &&
-               %w[first mid last].include?(dpoint1) &&
-               %w[first mid last].include?(dpoint2)
-          return
-        end
-        @data = @data.sort_by { |datapoint| datapoint.time }
+        @data = @data.sort_by(&:time)
 
-
-        delta_x = @data.public_send(dpoint2).value - @data.public_send(dpoint1).value
-        delta_y = @data.public_send(dpoint2).time - @data.public_send(dpoint1).time
+        delta_x = @data[dpoint2].value - @data[dpoint1].value
+        delta_y = @data[dpoint2].time - @data[dpoint1].time
         return delta_x if delta_x.zero?
 
         delta_y / delta_x

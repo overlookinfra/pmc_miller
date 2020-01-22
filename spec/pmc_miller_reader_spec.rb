@@ -13,6 +13,7 @@ RSpec.describe PmcMiller::Reader do
     reader = PmcMiller::Reader.new(fixtures_dir)
     reader.service = :puppetdb
     data = reader.read(:queue_depth)
-    expect(data).to be_an_instance_of(PmcMiller::Data)
+    expect(data).to be_an_instance_of(Array)
+    expect(data[0]).to be_an_instance_of(PmcMiller::DataPoint)
   end
 end
