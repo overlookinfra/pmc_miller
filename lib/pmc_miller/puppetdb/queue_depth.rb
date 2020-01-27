@@ -29,7 +29,9 @@ module PmcMiller
       # @return [Float]
       #
       def rate_of_change
-        (first_half_slope + last_half_slope) / 2.0
+        return @r_o_c if defined?(@r_o_c)
+
+        @r_o_c = (first_half_slope + last_half_slope) / 2.0
       end
 
       ##
