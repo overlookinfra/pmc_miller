@@ -51,7 +51,7 @@ module PmcMiller
     private
 
     ##
-    # Fully defined data key structure assocated with given key.
+    # Fully defined data key structure associated with given key.
     #
     # @param key [Symbol] Key to look up data structure for
     # @param host [String] Puppet Host associated with data to be found
