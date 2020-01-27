@@ -3,6 +3,7 @@
 require "pmc_miller/reader"
 require "pmc_miller/puppetdb/queue_depth"
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe PmcMiller::PuppetDB::QueueDepth do
   context "Minimal queue depth info" do
     fixtures_dir = File.join("spec", "fixtures", "basic", "puppet-metrics-collector")
@@ -45,6 +46,11 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
     it "fails" do
       expect(subject.summary).to eq("fail")
     end
+    it "has a positive rate of change" do
+      res = subject.results
+      expect(res).to include(:rate_of_change)
+      expect(res[:rate_of_change]).to be > 0.0
+    end
   end
   context "When queue depth is decreasing in the second half" do
     fixtures_dir = File.join("spec", "fixtures", "passing", "puppet-metrics-collector")
@@ -55,5 +61,11 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
     it "passes" do
       expect(subject.summary).to eq("pass")
     end
+    it "has a non-positive rate of change" do
+      res = subject.results
+      expect(res).to include(:rate_of_change)
+      expect(res[:rate_of_change]).to be <= 0.0
+    end
   end
 end
+# rubocop:enable Metrics/BlockLength
