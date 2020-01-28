@@ -17,7 +17,8 @@ module PmcMiller
       # @return [PmcMiller::PuppetDB::QueueDepth]
       #
       def initialize(data)
-        @data = data
+        # The data set must be sorted by time object from low to high for calculations.
+        @data = data.sort_by(&:time)
       end
 
       ##
@@ -62,8 +63,7 @@ module PmcMiller
       # Calculate slope given points in the data.
       #
       # The average rate of change (slope) is calculated for the given points
-      # in the data set.  The data set must be sorted by time object from low
-      # to high.
+      # in the data set.
       #
       # @param dpoint1 [Integer] Array index
       # @param dpoint2 [Integer] Array index
@@ -71,8 +71,6 @@ module PmcMiller
       # @return [Float]
       #
       def slope(dpoint1, dpoint2)
-        @data = @data.sort_by(&:time)
-
         delta_x = @data[dpoint2].value - @data[dpoint1].value
         delta_y = @data[dpoint2].time - @data[dpoint1].time
         return delta_x if delta_x.zero?
