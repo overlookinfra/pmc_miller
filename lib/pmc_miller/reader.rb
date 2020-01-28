@@ -37,6 +37,8 @@ module PmcMiller
       data = []
       json_files(service).each do |f|
         host = File.dirname(f).split(File::SEPARATOR).last
+        raise "no data map for '#{service}::#{key}'" unless key_map(service, key, host)
+
         json_string = File.read(f)
         json = JSON.parse(json_string)
         data << PmcMiller::DataPoint.new(json["timestamp"], json.dig(*key_map(service, key, host)))

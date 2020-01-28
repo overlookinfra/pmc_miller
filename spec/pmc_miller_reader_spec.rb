@@ -14,4 +14,8 @@ RSpec.describe PmcMiller::Reader do
     reader = PmcMiller::Reader.new(fixtures_dir)
     expect { reader.read("foobar", :queue_depth) }.to raise_error(RuntimeError, "'foobar' data unavailable")
   end
+  it "raises an error when the given service, key is not available" do
+    reader = PmcMiller::Reader.new(fixtures_dir)
+    expect { reader.read("puppetdb", :foobar) }.to raise_error(RuntimeError, "no data map for 'puppetdb::foobar'")
+  end
 end
