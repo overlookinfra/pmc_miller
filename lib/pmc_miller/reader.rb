@@ -27,7 +27,7 @@ module PmcMiller
     # Reads data associated with the given service and key.
     #
     # @param service [String] Service to lookup data for
-    # @param key [Symbol] Key to lookup data for
+    # @param key [String] Key to lookup data for
     #
     # @return [PmcMiller::Data] Data collection found
     #
@@ -59,12 +59,12 @@ module PmcMiller
     #
     def key_map(service, key, host)
       key_map = { "puppetdb" => {
-        queue_depth: ["servers",
-                      host.gsub(".", "-"),
-                      "puppetdb",
-                      "puppetdb-status",
-                      "status",
-                      "queue_depth"]
+        "queue_depth" => ["servers",
+                          host.gsub(".", "-"),
+                          "puppetdb",
+                          "puppetdb-status",
+                          "status",
+                          "queue_depth"]
       } }
       key_map[service][key]
     end
