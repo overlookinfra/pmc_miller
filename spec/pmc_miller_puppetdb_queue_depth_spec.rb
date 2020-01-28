@@ -8,7 +8,7 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
   context "Minimal queue depth info" do
     fixtures_dir = File.join("spec", "fixtures", "basic", "puppet-metrics-collector")
     reader = PmcMiller::Reader.new(fixtures_dir)
-    reader.service = :puppetdb
+    reader.service = "puppetdb"
     data = reader.read(:queue_depth)
     subject = PmcMiller::PuppetDB::QueueDepth.new(data)
 
@@ -40,7 +40,7 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
   context "When queue depth is increasing in the second half" do
     fixtures_dir = File.join("spec", "fixtures", "failing", "puppet-metrics-collector")
     reader = PmcMiller::Reader.new(fixtures_dir)
-    reader.service = :puppetdb
+    reader.service = "puppetdb"
     data = reader.read(:queue_depth)
     subject = PmcMiller::PuppetDB::QueueDepth.new(data)
     it "fails" do
@@ -55,7 +55,7 @@ RSpec.describe PmcMiller::PuppetDB::QueueDepth do
   context "When queue depth is decreasing in the second half" do
     fixtures_dir = File.join("spec", "fixtures", "passing", "puppet-metrics-collector")
     reader = PmcMiller::Reader.new(fixtures_dir)
-    reader.service = :puppetdb
+    reader.service = "puppetdb"
     data = reader.read(:queue_depth)
     subject = PmcMiller::PuppetDB::QueueDepth.new(data)
     it "passes" do

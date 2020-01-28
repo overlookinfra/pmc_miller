@@ -36,7 +36,7 @@ module PmcMiller
     # @return [PmcMiller::Data] Data collection found
     #
     def read(key)
-      return unless %i[puppetserver puppetdb].include? @service
+      return unless services.include? @service
 
       data = []
       json_files.each do |f|
@@ -59,7 +59,7 @@ module PmcMiller
     # @return [Array] Ordered list of keys needed to dig given key from pmc data
     #
     def key_map(key, host)
-      key_map = { puppetdb: {
+      key_map = { "puppetdb" => {
         queue_depth: ["servers",
                       host.gsub(".", "-"),
                       "puppetdb",
@@ -71,12 +71,21 @@ module PmcMiller
     end
 
     ##
+    # Array of service directories found in PMC directory.
+    #
+    # @return [Array] List of available services
+    #
+    def services
+      Dir.children @path
+    end
+
+    ##
     # Sorted array of JSON files for defined service.
     #
     # @return [Array] Ordered list of JSON files for defined service
     #
     def json_files
-      Dir[File.join(@path, @service.to_s, "*", "*.json")].sort
+      Dir[File.join(@path, @service, "*", "*.json")].sort
     end
 
     ##
@@ -89,7 +98,7 @@ module PmcMiller
     # @return [Array] Ordered list of archive files for defined service
     #
     def archives
-      Dir[File.join(@path, @service.to_s, "*.tar.bz2")].sort
+      Dir[File.join(@path, @service, "*.tar.bz2")].sort
     end
   end
 end

@@ -39,7 +39,7 @@ associated with the `puppetdb` service.
 require "pmc_miller/reader"
 
 reader = PmcMiller::Reader.new("/path/to/puppet-metrics-collector")
-reader.service = :puppetdb
+reader.service = "puppetdb"
 data = reader.read(:queue_depth)
 ```
 
@@ -78,7 +78,7 @@ to_json
 require "pmc_miller/reader"
 
 reader = PmcMiller::Reader.new("/path/to/puppet-metrics-collector")
-reader.service = :puppetdb
+reader.service = "puppetdb"
 
 data = reader.read(:queue_depth)
 
